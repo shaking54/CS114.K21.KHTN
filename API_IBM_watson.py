@@ -14,7 +14,7 @@ visual_recognition = VisualRecognitionV4(
 visual_recognition.set_service_url('https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/8344294d-ae94-4dc3-901b-5aa57b7e01b8')
 
 
-print("enter file name of test set \n format cat_testX.jpeg || dog_testX.jpeg, X is a interget from 1 to 7 \n example: cat_test1.jpeg ")
+print("enter test file path: ")
 n = input()
 
 with open(n, 'rb') as cat:
