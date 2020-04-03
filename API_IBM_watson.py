@@ -13,12 +13,15 @@ visual_recognition = VisualRecognitionV4(
 
 visual_recognition.set_service_url('https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/8344294d-ae94-4dc3-901b-5aa57b7e01b8')
 
-with open('cat10.jpeg', 'rb') as honda_file, open('cat8.jpeg', 'rb') as dice_file:
+
+print("enter file name of test set \n format cat_testX.jpeg || dog_testX.jpeg, X is a interget from 1 to 7 \n example: cat_test1.jpeg ")
+n = input()
+
+with open(n, 'rb') as cat:
     result = visual_recognition.analyze(
         collection_ids=["656bca73-b606-4d88-90c2-cb221d3667a9"],
         features=[AnalyzeEnums.Features.OBJECTS.value],
         images_file=[
-            FileWithMetadata(honda_file),
-            FileWithMetadata(dice_file)
+            FileWithMetadata(cat),
         ]).get_result()
     print(json.dumps(result, indent=2))
