@@ -3,25 +3,15 @@ import os
 from ibm_watson import VisualRecognitionV4
 from ibm_watson.visual_recognition_v4 import FileWithMetadata, TrainingDataObject, Location, AnalyzeEnums
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from watson_developer_cloud import VisualRecognitionV3
 
+visual_recognition = VisualRecognitionV3(
+    '2018-03-19',
+    iam_apikey='XiwANQts_kQ6ZeGtK2IXkdI6IJ2ubtER8NZPkRewIvJM')
 
-authenticator = IAMAuthenticator('P25ojmx0GDFuNUemlfT1-mbW9H89wZSgpyKJxrjVbvLD')
-visual_recognition = VisualRecognitionV4(
-    version='2019-02-11',
-    authenticator=authenticator
-)
-
-visual_recognition.set_service_url('https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/8344294d-ae94-4dc3-901b-5aa57b7e01b8')
-
-
-print("enter test file path: ")
-n = input()
-
-with open(n, 'rb') as cat:
-    result = visual_recognition.analyze(
-        collection_ids=["656bca73-b606-4d88-90c2-cb221d3667a9"],
-        features=[AnalyzeEnums.Features.OBJECTS.value],
-        images_file=[
-            FileWithMetadata(cat),
-        ]).get_result()
-    print(json.dumps(result, indent=2))
+with open('/content/CS114.K21.KHTN/test set/cat_test6.jpeg', 'rb') as images_file:
+    classes = visual_recognition.classify(
+        images_file,
+        threshold='0.6',
+	classifier_ids='default').get_result()
+print(json.dumps(classes['images'][0]['classifiers'][0]['classes'], indent=2))
